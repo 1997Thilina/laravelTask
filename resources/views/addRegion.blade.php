@@ -14,15 +14,16 @@
             <div class="form-group col-md-4">
                 <label for="zone">Zone:</label>
                 <select class="form-control" id="zone" name="zone">
-                    <option>Select</option>
-                    <option>Zone 1</option>
-                    <option>Zone 2</option>
-                    <option>Zone 3</option>
+             
+                    @foreach ($zones as $item)
+                        <option>{{$item->zone_long_description}}</option>
+                    @endforeach
+                    
                 </select>
             </div>
             <div class="form-group col-md-4">
                 <label for="region_code">Region Code:</label>
-                <input type="text" class="form-control" id="region_code" name="region_code" value="Automatically">
+                <input type="text" class="form-control" id="region_code" name="region_code" value="Automatically" readonly>
             </div>
             <div class="form-group col-md-4">
                 <label for="region_name">Region Name:</label>

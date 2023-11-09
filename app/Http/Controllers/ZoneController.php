@@ -26,7 +26,7 @@ class ZoneController extends Controller
         $zone-> zone_long_description =$request-> zone_long_description;
         $zone-> short_description =$request-> short_description;
         $zone->save();
-        return $request;
+        return 'zone added successfully';
     }
 
 

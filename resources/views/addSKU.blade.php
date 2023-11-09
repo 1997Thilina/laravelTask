@@ -9,27 +9,28 @@
 <body>
     <div class="container" style="align-items: center">
         <h2>Add SKU</h2>
-        <form>
+        <form method="POST" action="{{ route('sku.store') }}">
+            @csrf
             <div class="form-group col-md-4">
                 <label for="sku_id">SKU ID</label>
-                <input type="text" class="form-control" id="sku_id" readonly>
+                <input type="text" class="form-control" id="sku_id" placeholder="automatically" readonly>
             </div>
             <div class="form-group col-md-4">
                 <label for="sku_name">SKU Name</label>
-                <input type="text" class="form-control" id="sku_name" value="Main Product Name/auto" readonly>
+                <input type="text" class="form-control" id="sku_name" name="sku_name" value="" >
             </div>
             <div class="form-group col-md-4">
                 <label for="mrp">MRP</label>
-                <input type="text" class="form-control" id="mrp">
+                <input type="text" class="form-control" name="mrp" id="mrp">
             </div>
             <div class="form-group col-md-4">
                 <label for="distributor_price">Distributor Price</label>
-                <input type="text" class="form-control" id="distributor_price">
+                <input type="text" class="form-control" name="dPrice" id="distributor_price">
             </div>
             <div class="form-row">
                 <div class="form-group col-md-3">
                     <label for="weight_volume">Weight/Volume</label>
-                    <input type="text" class="form-control" id="weight_volume">
+                    <input type="text" class="form-control" name="quantity" id="weight_volume">
                 </div>
                 <div class="form-group col-md-1">
                     <label for="gender">Select:</label>

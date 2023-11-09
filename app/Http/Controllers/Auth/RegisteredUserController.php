@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
+use GuzzleHttp\Psr7\Response;
+use Illuminate\Auth\Access\Response as AccessResponse;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -48,4 +50,27 @@ class RegisteredUserController extends Controller
 
         return redirect(RouteServiceProvider::HOME);
     }
+
+    public function storeDistributor(Request $request)
+    {
+        // $request->validate([
+        //     'name' => ['required', 'string', 'max:255'],
+        //     'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+        //     'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        // ]);
+
+
+        $dstbr = new User();
+        $dstbr-> name =$request-> name;
+        $dstbr-> email =$request-> email;
+        $dstbr-> password =$request-> password;
+        //$dstbr-> role = 'distributor';
+        $dstbr->save();
+        
+        return redirect()->route('view.addUser')->with('success', 'Successfully added.');
+
+        //return redirect(RouteServiceProvider::HOME);
+       
+    }
+    
 }

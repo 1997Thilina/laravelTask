@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('s_k_u_s', function (Blueprint $table) {
             $table->id();
+            $table->string('sku_name');
+            $table->string('mrp');
+            $table->string('dPrice');
+            $table->string('quantity');
+            $table->string('wov');
             $table->timestamps();
         });
     }
