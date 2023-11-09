@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Add User</title>
+    <title></title>
     <style>
         .custom-container {
             max-width: 40%;
@@ -12,7 +12,7 @@
 </head>
 <body>
     <div class=" container col-md-8 ">
-        <h2>Add User</h2>
+        <h2>Add Destributor</h2>
         <form method="POST" action="{{ route('addUser.store') }}" class="needs-validation" novalidate>
             @csrf <!-- CSRF protection -->
             <div class="form-row">
@@ -61,6 +61,12 @@
             </div>
             <button type="submit" class="btn btn-success">Submit</button>
         </form>
+        @if(session('success'))
+            <div class="alert alert-success">
+            {{ session('success') }}
+         </div>
+        @endif
+
     </div>
 
     <!-- Add Bootstrap JavaScript and jQuery (if needed) -->

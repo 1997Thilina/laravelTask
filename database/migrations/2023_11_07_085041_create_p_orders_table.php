@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('p_orders', function (Blueprint $table) {
             $table->id();
+            $table->string('zone');
+            $table->string('region');
+            $table->string('territory');
+            $table->string('distributor');
+            $table->string('quantity')->nullable();
+            $table->string('remark')->nullable();
             $table->timestamps();
         });
     }

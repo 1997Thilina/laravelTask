@@ -14,7 +14,7 @@ class AddUserController extends Controller
         return $request;
     }
 
-    public function adDashboard(){
+    public function adminDashboard(){
         return view('adminDashboard');
     }
 }

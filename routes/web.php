@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AddUserController;
+use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\POrderController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegionController;
 use App\Http\Controllers\SKUController;
@@ -34,20 +36,33 @@ Route::middleware('auth')->group(function () {
 });
 
 
+Route::middleware(['auth','role:admin'])->group(function () {
+    Route::get('/zone', [ZoneController::class, 'viewZone'])->name('view.zone');
+    Route::post('/zone/add', [ZoneController::class, 'storeZone'])->name('zone.store');
 
-Route::get('/zone', [ZoneController::class, 'viewZone'])->name('view.zone');
-Route::post('/zone/add', [ZoneController::class, 'storeZone'])->name('zone.store');
+    Route::get('/region', [RegionController::class, 'viewRegion'])->name('region');
+    Route::post('/region/add', [RegionController::class, 'storeRegion'])->name('region.store');
 
-Route::get('/region', [RegionController::class, 'viewRegion'])->name('region');
-Route::post('/region/add', [RegionController::class, 'storeRegion'])->name('region.store');
+    Route::get('/territory', [TerritoryController::class, 'viewTerritory'])->name('territory');
+    Route::post('/territory/add', [TerritoryController::class, 'storeTerritory'])->name('territory.store');
 
-Route::get('/territory', [TerritoryController::class, 'viewTerritory'])->name('territory');
-Route::post('/territory/add', [TerritoryController::class, 'storeTerritory'])->name('teritory.store');
+    Route::get('/sku', [SKUController::class, 'viewSku'])->name('view.sku');
+    Route::post('/sku/add', [SKUController::class, 'skustore'])->name('sku.store');
 
-Route::get('/sku', [SKUController::class, 'viewSku'])->name('view.sku');
-Route::post('/sku/add', [SKUController::class, 'skuZone'])->name('sku.store');
+    Route::get('/addUser', [AddUserController::class, 'addUser'])->name('view.addUser');
+    Route::post('/addUser', [RegisteredUserController::class, 'storeDistributor'])->name('addUser.store');
 
-Route::get('/addUser', [AddUserController::class, 'addUser'])->name('view.addUser');
-Route::post('/addUser/add', [AddUserController::class, 'storeUser'])->name('addUser.store');
+    Route::get('/dashboard/admin', [AddUserController::class, 'adminDashboard'])->name('view.admin');
+
+    
+
+    Route::get('/viewOder', [POrderController::class, 'viewOrder'])->name('order.view');
+});
 
 require __DIR__.'/auth.php';
+
+Route::middleware('auth')->group(function () {
+    Route::get('/addOder', [POrderController::class, 'createOrder'])->name('order.add');
+    Route::post('/addOrder/add', [POrderController::class, 'storeOrder'])->name('purchase.order.store');
+    Route::get('/viewOder', [POrderController::class, 'viewOrder'])->name('order.view');
+});
