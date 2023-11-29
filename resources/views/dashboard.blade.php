@@ -31,6 +31,9 @@
             <div class="col-md-3">
                 <a href="{{ route('order.view') }}" class="btn btn-danger btn-lg btn-block">VIEW ORDERS  </a>
             </div>
+            <div class="col-md-3">
+                <a href="{{ route('freeOrder.view') }}" class="btn btn-danger btn-lg btn-block">PLACE FREE ISSUED ORDERS  </a>
+            </div>
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

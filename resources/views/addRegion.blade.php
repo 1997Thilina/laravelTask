@@ -22,8 +22,8 @@
                 </select>
             </div>
             <div class="form-group col-md-4">
-                <label for="region_code">Region Code:</label>
-                <input type="text" class="form-control" id="region_code" name="region_code" value="Automatically" readonly>
+                <label for="tr_id"> Region Code:</label>
+                <input type="text" class="form-control" id="tr_id" value="{{ $znr->max('id')+1}}" readonly>
             </div>
             <div class="form-group col-md-4">
                 <label for="region_name">Region Name:</label>

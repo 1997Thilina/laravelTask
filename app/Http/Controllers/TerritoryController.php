@@ -10,7 +10,8 @@ class TerritoryController extends Controller
 {
     public function viewTerritory(){
         $znr=Region::all();
-        return view('addTerritory',compact('znr'));
+        $tr=Territory::all();
+        return view('addTerritory',compact(['znr','tr']));
     }
 
     public function storeTerritory(Request $request)

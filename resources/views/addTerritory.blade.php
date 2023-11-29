@@ -31,8 +31,8 @@
             </div>
             
             <div class="form-group col-md-4">
-                <label for="territory_code">Territory Code:</label>
-                <input type="text" class="form-control" id="territory_code" name="territory_code" value="Automatically" readonly>
+                <label for="tr_id"> Territory Code:</label>
+                <input type="text" class="form-control" id="tr_id" value="{{ $tr->max('id')+1}}" readonly>
             </div>
             <div class="form-group col-md-4">
                 <label for="territory_name">Territory Name:</label>

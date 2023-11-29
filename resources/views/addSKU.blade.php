@@ -13,7 +13,7 @@
             @csrf
             <div class="form-group col-md-4">
                 <label for="sku_id">SKU ID</label>
-                <input type="text" class="form-control" id="sku_id" placeholder="automatically" readonly>
+                <input type="text" class="form-control" id="sku_id" value="{{ $sku->max('id')+1}}" readonly>
             </div>
             <div class="form-group col-md-4">
                 <label for="sku_name">SKU Name</label>

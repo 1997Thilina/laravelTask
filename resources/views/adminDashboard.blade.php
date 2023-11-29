@@ -43,6 +43,9 @@
                 <div class="col-md-3">
                     <a href="{{ route('view.sku') }}" class="btn btn-danger btn-lg btn-block">ADD SKU </a>
                 </div>
+                <div class="col-md-3">
+                    <a href="{{ route('view.defineFree') }}" class="btn btn-danger btn-lg btn-block">DEFINE FREE ISSUE SKU </a>
+                </div>
             </div>
         </div>
     </x-app-layout>

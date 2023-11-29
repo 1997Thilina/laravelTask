@@ -16,9 +16,11 @@ class POrderController extends Controller
         $t = Territory::all();
         $z=Zone::all();
         $r=Region::all();
+        $pOrder = POrder::all();
         //$name = array($t, $z, $r);
+        //return compact(['sku','t', 'z']);
 
-        return view('createOrder', compact('sku'), compact('t'));
+        return view('createOrder', compact(['sku','t','pOrder']));
     }
 
     public function viewOrder(){

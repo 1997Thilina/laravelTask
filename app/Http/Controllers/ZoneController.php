@@ -9,7 +9,8 @@ use Illuminate\Support\Facades\Validator;
 class ZoneController extends Controller
 {
     public function viewZone(){
-        return view('addZone');
+        $zone = Zone::all();
+        return view('addZone',compact('zone'));
     }
 
     public function storeZone(Request $request){
