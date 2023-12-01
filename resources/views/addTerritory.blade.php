@@ -14,25 +14,25 @@
             
             <div class="form-group col-md-3">
                 <label for="zone">Zone:</label>
-                <select class="form-control" id="zone" name="zone">
-                    @foreach ($znr as $item)
-                    <option>{{$item->zone}}</option>
+                <select class="form-control" id="zone" name="zone" required>
+                    <option value="" disabled selected>Select a Zone</option>
+                    @foreach ($z as $item)
+                    <option>{{$item->short_description}}</option>
                     @endforeach
                     
                 </select>
             </div>
+            {{-- <td><label hidden="hidden" id="zone_var"  ></td> --}}
             <div class="form-group col-md-4">
                 <label for="region">Region:</label>
                 <select class="form-control" id="region" name="region">
-                    @foreach ($znr as $item)
-                    <option>{{$item->region_name}}</option>
-                    @endforeach
+                    
                 </select>
             </div>
             
             <div class="form-group col-md-4">
-                <label for="territory_code">Territory Code:</label>
-                <input type="text" class="form-control" id="territory_code" name="territory_code" value="Automatically" readonly>
+                <label for="tr_id"> Territory Code:</label>
+                <input type="text" class="form-control" id="tr_id" value="{{ $tr->max('id')+1}}" readonly>
             </div>
             <div class="form-group col-md-4">
                 <label for="territory_name">Territory Name:</label>
@@ -47,6 +47,39 @@
         </div>
         @endif
     </div>
+
+
+    <script>
+        const inputFields = document.querySelectorAll('#zone');
+        //const displayLabel1=document.getElementById('total_amount');
+        //const zoneSelect = document.getElementById('zone');
+        const regionSelect = document.getElementById('region');
+        
+        for (const inputField of inputFields) {
+           
+        inputField.addEventListener('input', function (event) {
+            const targetInput = event.target;
+            const myZone  = targetInput.value;
+            var myRegion = @json($znr);
+            //console.log(myZone);
+            regionSelect.innerHTML = '';
+
+            for (var j = 0; j < myRegion.length; j++) {
+                var sItem = myRegion[j];
+                
+                if(sItem.zone == myZone){
+                    const option = document.createElement('option');
+                    option.value = sItem.region_name;
+                    option.text = sItem.region_name;
+                    regionSelect.add(option);
+    
+                }
+            }
+
+        });
+        
+        }
+    </script>
     
 
     <!-- Add Bootstrap JavaScript and jQuery (if needed) -->

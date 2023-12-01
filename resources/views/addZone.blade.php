@@ -11,10 +11,14 @@
         <h2>Add Zone</h2>
         <form method="POST" action="{{ route('zone.store') }}">
             @csrf <!-- CSRF protection -->
-            <div class="form-group col-md-4">
+            {{-- <div class="form-group col-md-4">
                 <select id="zone_code" class="form-control @error('zone_code') is-invalid @enderror" name="zone_code" value="{{ old('zone_code') }}" autocomplete="zone_code">
-                    <option value="auto">Automatically</option>
+                    <option value="auto">{{ $zone->max('id')+1}}</option>
                 </select>
+            </div> --}}
+            <div class="form-group col-md-4">
+                <label for="zone_code">ZONE ID</label>
+                <input type="text" class="form-control" id="zone_code" value="{{ $zone->max('id')+1}}" readonly>
             </div>
             <div class="form-group col-md-4">
                 <label for="zone_long_description">Zone Long Description:</label>

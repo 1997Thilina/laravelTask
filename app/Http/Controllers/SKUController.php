@@ -7,8 +7,10 @@ use Illuminate\Http\Request;
 
 class SKUController extends Controller
 {
+    
     public function viewSku(){
-        return view('addSKU');
+        $sku=SKU::all();
+        return view('addSKU',compact('sku'));
     }
 
     public function skustore(Request $request){

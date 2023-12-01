@@ -2,12 +2,17 @@
 
 use App\Http\Controllers\AddUserController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\DefineFreeController;
+use App\Http\Controllers\DiscountDefineController;
+use App\Http\Controllers\PlaceFreeOrderController;
 use App\Http\Controllers\POrderController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegionController;
 use App\Http\Controllers\SKUController;
 use App\Http\Controllers\TerritoryController;
 use App\Http\Controllers\ZoneController;
+use App\Models\DiscountDefine;
+use App\Models\PlaceFreeOrder;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -54,9 +59,16 @@ Route::middleware(['auth','role:admin'])->group(function () {
 
     Route::get('/dashboard/admin', [AddUserController::class, 'adminDashboard'])->name('view.admin');
 
+    Route::get('/defineFreeIssues', [DefineFreeController::class, 'viewDefineFree'])->name('view.defineFree');
+    Route::post('/defineFreeIssues/add', [DefineFreeController::class, 'addDefineFree'])->name('DefineFree.store');
+
+    Route::get('/defineDiscount', [DiscountDefineController::class, 'viewDiscountDefine'])->name('view.defineDiscount');
+    Route::post('/defineDiscount/add', [DiscountDefineController::class, 'addDiscount'])->name('defineDiscount.store');
     
 
     Route::get('/viewOder', [POrderController::class, 'viewOrder'])->name('order.view');
+
+
 });
 
 require __DIR__.'/auth.php';
@@ -65,4 +77,16 @@ Route::middleware('auth')->group(function () {
     Route::get('/addOder', [POrderController::class, 'createOrder'])->name('order.add');
     Route::post('/addOrder/add', [POrderController::class, 'storeOrder'])->name('purchase.order.store');
     Route::get('/viewOder', [POrderController::class, 'viewOrder'])->name('order.view');
+
+    Route::get('/viewOderDetails', [POrderController::class, 'viewOrderDetails'])->name('orderDetais.view');
+
+    Route::post('/addFreeOrder/add', [PlaceFreeOrderController::class, 'storeFreeOrder'])->name('freeOrder.store');
+    Route::get('/viewFreeOder', [PlaceFreeOrderController::class, 'ViewcreateOrderFree'])->name('freeOrder.view');
+
+    Route::get('/download/orderDetails', [POrderController::class, 'downloadOrderDetails'])->name('orderDetails.download');
+
+
+
+    
 });
+

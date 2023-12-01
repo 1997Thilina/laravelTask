@@ -10,7 +10,9 @@ class RegionController extends Controller
 {
     public function viewRegion(){
         $zones=Zone::all();
-        return view('addRegion',compact('zones'));
+        $znr=Region::all();
+        //$tr=Territory::all();
+        return view('addRegion',compact(['zones','znr']));
     }
 
     public function storeRegion(Request $request){

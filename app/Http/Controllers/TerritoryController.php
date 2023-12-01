@@ -4,13 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\Region;
 use App\Models\Territory;
+use App\Models\Zone;
 use Illuminate\Http\Request;
 
 class TerritoryController extends Controller
 {
     public function viewTerritory(){
         $znr=Region::all();
-        return view('addTerritory',compact('znr'));
+        $z=Zone::all();
+        $tr=Territory::all();
+        return view('addTerritory',compact(['znr','tr','z']));
     }
 
     public function storeTerritory(Request $request)

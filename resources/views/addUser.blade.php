@@ -13,7 +13,7 @@
 <body>
     <div class=" container col-md-8 ">
         <h2>Add Destributor</h2>
-        <form method="POST" action="{{ route('addUser.store') }}" class="needs-validation" novalidate>
+        <form method="POST" action="{{ route('addUser.store') }}" class="needs-validation" >
             @csrf <!-- CSRF protection -->
             <div class="form-row">
                 <div class="form-group col-md-3">
@@ -46,8 +46,11 @@
                 <div class="form-group col-md-3">
                     <label for="territory">Territory:</label>
                     <select class="form-control" id="territory" name="territory" required>
-                        <option value="T1">T1</option>
-                        <option value="T2">T2</option>
+                        @foreach($t as $item)
+                        <option>{{$item->territory_name}}</option>
+                        @endforeach
+                        
+                        
                     </select>
                 </div>
                 <div class="form-group col-md-3">
