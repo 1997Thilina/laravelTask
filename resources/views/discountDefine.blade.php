@@ -8,20 +8,14 @@
 </head>
 <body>
     <div class="container" style="align-items: center">
-        <h2>define free Issues</h2>
-        <form method="POST" action="{{ route('DefineFree.store') }}">
+        <h2>Add discounts</h2>
+        <form method="POST" action="{{ route('defineDiscount.store') }}">
             @csrf
             <div class="form-group col-md-4">
-                <label for="free_label">Free issue label</label>
-                <input type="text" class="form-control" id="free_label" name="free_label" required >
+                <label for="free_label">discount label</label>
+                <input type="text" class="form-control" id="discount_label" name="discount_label" required >
             </div>
-            <div class="form-group col-md-4">
-                <label for="type">Type</label>
-                <select class="form-control" id="type" name="type" required>
-                    <option value="Flat">Flat</option>
-                    <option value="Multiple">Multiple</option>
-                </select>
-            </div>
+            
             <div class="form-group col-md-4">
                 <label for="product">Purchase Product</label>
                 <select class="form-control" id="product" name="product" required>
@@ -33,21 +27,21 @@
             </div>
             <div class="form-group col-md-4">
             
-                <label for="free_product">Free product</label>
+                <label for="free_product">already added</label>
                 
                  <label class="form-control" name=" free_product" id="free_product"> </label>
                  
             </div>
-            <div class="form-group col-md-4">
+            {{-- <div class="form-group col-md-4">
                 <label for="purchase_quantity">Purchase Quantity</label>
                 <input type="text" class="form-control" name="purchase_quantity" id="purchase_quantity">
-            </div>
+            </div> --}}
 
             
 
                 <div class="form-group col-md-3">
-                    <label for="free_quantity">Free quantity</label>
-                    <input type="text" class="form-control" name="free_quantity" id="free_quantity">
+                    <label for="free_quantity">discount %</label>
+                    <input type="number" class="form-control" name="discount" id="discount" min='0' max ='100' required>
                 </div>
 
                 <div class="form-group col-md-3">
@@ -55,10 +49,10 @@
                     <input type="text" class="form-control" name="lower_limit" id="lower_limit">
                 </div>
 
-                <div class="form-group col-md-3">
+                {{-- <div class="form-group col-md-3">
                     <label for="upper_limit">UPPER LIMIT </label>
                     <input type="text" class="form-control" name="upper_limit" id="upper_limit">
-                </div>
+                </div> --}}
             
            
             <input type="hidden" class="form-control" name="unit_price" id="unit_price_test">
@@ -79,7 +73,8 @@
         inputField.addEventListener('input', function (event) {
             const targetInput = event.target;
             const myProduct  = targetInput.value;
-            var myVariable = @json($free_define);
+            var myVariable = @json($discount_define);
+            console.log(myVariable);
             var mySku = @json($sku);
             const productQ=document.getElementById('free_product');
             const productId=document.getElementById('sku_id_test');

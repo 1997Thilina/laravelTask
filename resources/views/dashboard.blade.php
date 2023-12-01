@@ -26,13 +26,10 @@
         <h2>User Dashboard</h2>
         <div class="row">
             <div class="col-md-3">
-                <a href=" {{ route('order.add') }}" class="btn btn-danger btn-lg btn-block">ADD ORDER </a>
-            </div>
-            <div class="col-md-3">
                 <a href="{{ route('order.view') }}" class="btn btn-danger btn-lg btn-block">VIEW ORDERS  </a>
             </div>
             <div class="col-md-3">
-                <a href="{{ route('freeOrder.view') }}" class="btn btn-danger btn-lg btn-block">PLACE FREE ISSUED ORDERS  </a>
+                <a href="{{ route('freeOrder.view') }}" class="btn btn-danger btn-lg btn-block">PLACE ORDERS  </a>
             </div>
         </div>
     </div>

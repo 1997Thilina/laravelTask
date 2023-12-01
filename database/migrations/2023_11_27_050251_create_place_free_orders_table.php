@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('price');
             $table->string('en_qty');
             $table->string('free_qty')->nullable();
+            $table->string('discount')->nullable();
             $table->string('amount');
             $table->timestamps();
         });

@@ -17,20 +17,20 @@
             </div>
             <div class="form-group col-md-4">
                 <label for="sku_name">SKU Name</label>
-                <input type="text" class="form-control" id="sku_name" name="sku_name" value="" >
+                <input type="text" class="form-control" id="sku_name" name="sku_name" value="" required >
             </div>
             <div class="form-group col-md-4">
                 <label for="mrp">MRP</label>
-                <input type="text" class="form-control" name="mrp" id="mrp">
+                <input type="text" class="form-control" name="mrp" id="mrp" required>
             </div>
             <div class="form-group col-md-4">
                 <label for="distributor_price">Distributor Price</label>
-                <input type="text" class="form-control" name="dPrice" id="distributor_price">
+                <input type="text" class="form-control" name="dPrice" id="distributor_price" required>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-3">
                     <label for="weight_volume">Weight/Volume</label>
-                    <input type="text" class="form-control" name="quantity" id="weight_volume">
+                    <input type="text" class="form-control" name="quantity" id="weight_volume" required>
                 </div>
                 <div class="form-group col-md-1">
                     <label for="gender">Select:</label>
@@ -39,7 +39,12 @@
                         <option value="volume">Volume</option>
                     </select>
                 </div>
+                
             </div>
+            {{-- <div class="form-group col-md-4">
+                <label for="mrp">Stock Availability</label>
+                <input type="text" class="form-control" name="stock" id="stock" required>
+            </div> --}}
             
             <button type="submit" class="btn btn-success">Save</button>
         </form>

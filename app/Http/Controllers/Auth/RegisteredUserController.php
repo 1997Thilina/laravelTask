@@ -53,6 +53,7 @@ class RegisteredUserController extends Controller
 
     public function storeDistributor(Request $request)
     {
+        //return $request;
         // $request->validate([
         //     'name' => ['required', 'string', 'max:255'],
         //     'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
@@ -62,8 +63,15 @@ class RegisteredUserController extends Controller
 
         $dstbr = new User();
         $dstbr-> name =$request-> name;
+        $dstbr-> username =$request-> username;
         $dstbr-> email =$request-> email;
         $dstbr-> password =$request-> password;
+        $dstbr-> territory =$request-> territory;
+        $dstbr-> nic =$request-> nic;
+        $dstbr-> address =$request-> address;
+        $dstbr-> mobile =$request-> mobile;
+        $dstbr-> gender =$request-> gender;
+        
         //$dstbr-> role = 'distributor';
         $dstbr->save();
         

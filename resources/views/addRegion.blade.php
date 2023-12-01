@@ -23,7 +23,7 @@
             </div>
             <div class="form-group col-md-4">
                 <label for="tr_id"> Region Code:</label>
-                <input type="text" class="form-control" id="tr_id" value="{{ $znr->max('id')+1}}" readonly>
+                <input type="text" class="form-control" id="tr_id" name='region_code' value="{{ $znr->max('id')+1}}" readonly>
             </div>
             <div class="form-group col-md-4">
                 <label for="region_name">Region Name:</label>
