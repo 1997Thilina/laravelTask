@@ -78,13 +78,13 @@
 
                         @if (is_null($item->discount))
                         <td><label type="text" class="form-control" id="discount" >NoDiscount</td>
-                            <input type="hidden" name='discount_value[]' value="0">
+                            <input type="hidden" id='discount_value' name='discount_value[]' value="">
                             <td><label hidden="hidden" id="discount_js"  >0</td>
                             <td><label hidden="hidden" id="discountLowerLimit_js"  >0</td>
                         @else
                         
                         <td><label type="text" class="form-control" id="discount" > {{ $item->discount}}</td>
-                            <input type="hidden" name='discount_value[]' value="{{ $item->discount}}">
+                            <input type="hidden" id='discount_value' name='discount_value[]' value="">
                             <td><label hidden="hidden" id="discount_js"  >{{ $item->discount}}</td>
                             <td><label hidden="hidden" id="discountLowerLimit_js"  >{{ $item->lower_limit_dis}}</td>
                          @endif
@@ -167,6 +167,7 @@
             const displayLabel2 = parentRow.querySelector('#price');
             const displayLabel3 = parentRow.querySelector('#discount');
             const displayLabel4 = parentRow.querySelector('#price0'); 
+            const displayLabel5 = parentRow.querySelector('#discount_value'); 
 
             // Get the current unit price value
             const unitPriceValue = parentRow.querySelector('#unit_price').textContent;
@@ -210,6 +211,8 @@
             }
            
             displayLabel3.textContent = discVal;
+            displayLabel5.value= JSON.stringify(discVal);
+            console.log(discVal);
             
             
 
@@ -252,7 +255,7 @@
                 const unitValue = parseFloat(unitPriceValue);
                 const discountValue1 = parseFloat(discount1);
                 const discountLimitValue1 = parseFloat(discountLowerLimit1);
-                console.log(unitValue);
+                //console.log(unitValue);
                 let integerValue1 = unitValue * units;
                 let integerValue2=0;
 

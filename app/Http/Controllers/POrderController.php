@@ -141,9 +141,18 @@ class POrderController extends Controller
         //return $request;
     }
 
-    public function downloadOrderDetails(){
-        //return "hi";
-        $orders=PlaceFreeOrder::all();
+    public function downloadOrderDetails(Request $request){
+        //return $request;
+        //$orders=PlaceFreeOrder::all();
+        $checkedArray = $request->input('checkedArray');
+
+        // Convert the comma-separated values to an array
+        $bulkIds = explode(',', $checkedArray);
+
+        // Filter orders based on bulkIds
+        $orders = PlaceFreeOrder::whereIn('bulk_id', $bulkIds)->get();
+
+        //return $orders;
         $filePath = public_path('/export.csv'); // Example path, adjust as needed
 
         $handle = fopen($filePath, 'w');

@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-    <div class="container col-md-8">
+    <div class="container col-md-10">
         <h2 class="mt-10">View Purchase Orders</h2>
     
         <form class="col-md-12" method="GET" action="{{ route('order.view') }}">
@@ -96,7 +96,8 @@
                     <th>Date</th>
                     <th>Time</th>
                     <th>Total amount</th>
-                    <th>View PO</th>
+                    <th>View PO </th>
+                    <th>Select To Print <br> <label for="select_all">select all:</label><input type="checkbox" class="col-md-3" id="select_all" name="select_all"></th>
 
                 </tr>
             </thead>
@@ -105,8 +106,12 @@
             </tbody>
         </table>
         
-        <div class="col-md-2">
+        {{-- <div class="col-md-2">
             <a href="{{ route('orderDetails.download') }}" class="btn btn-primary" style="color: white; width:100px ; height:40px; background-color: rgb(9, 156, 63);">download csv</a>
+        </div> --}}
+        <div id="message-container"></div>
+        <div class="form-group col-md-2">
+            <button type="submit" class="btn btn-success" id='print_order'>Print</button>
         </div>
 
     </div>
@@ -246,6 +251,7 @@
 
     <script>
         const tableBody = document.getElementById('tableBody');
+        const selectAll = document.getElementById('select_all');
         const rowData = @json($result);
         const bulkIdSums = {};
         const regionArray = {};
@@ -253,6 +259,7 @@
         const customerArray = {};
         const dateArray = {};
         const timeArray = {};
+        const checkedArray = {};
         let i = 0;
         let j = 0;
 
@@ -265,6 +272,7 @@
             let [date, time] = dateTimeString.split(' ');
             let amount = parseFloat(item['amount']);
             i++;
+            
             //console.log(customerName);
 
             // Check if bulkId is already in bulkIdSums
@@ -287,9 +295,10 @@
             
             dateArray[bulk_id] = date;
             timeArray[bulk_id] = time;
+            checkedArray[bulk_id] = false;
             //console.log(bulkIdSums);
             //console.log(bulk_id);
-            //console.log(customerArray);
+            //console.log(checkedArray);
         });
 
         
@@ -304,16 +313,53 @@
             const tdTime = document.createElement('td');
             const tdResult = document.createElement('td');
             const newButton = document.createElement('button');
+            const newCheckbox = document.createElement('input');
+
+            const checkboxcolumn = document.createElement('td');
+            const checkboxContainer = document.createElement('div');
+
+            checkboxContainer.classList.add('form-check');
+            newCheckbox.classList.add('form-check-input'); 
+            checkboxContainer.appendChild(newCheckbox);
+            checkboxcolumn.appendChild(checkboxContainer);
+
 
             // Set button attributes and properties
             newButton.textContent = 'view'; // Set button text
             newButton.setAttribute('id', 'myButton'); // Set button id
             newButton.classList.add('btn', 'btn-primary'); // Add CSS classes
 
+            newCheckbox.type = 'checkbox';
+            newCheckbox.id = 'newCheckbox';
+            //newCheckbox.name = 'newCheckbox';
+            newCheckbox.style.margin = '7px';
+            newCheckbox.value = bulk_id;
+            //console.log(newCheckbox);
+            
             // Add a click event listener to the button
             newButton.addEventListener('click', function() {
                 //alert('Button clicked!'+ bulk_id);
                 window.location.href = '/viewOderDetails?bulk_id=' + bulk_id;
+            });
+
+            selectAll.addEventListener('click', function() {
+                //alert('Button clicked!'+ bulk_id);
+                if(selectAll.checked){
+                    newCheckbox.checked = true;
+                }else{
+                    newCheckbox.checked = false;
+                }
+                checkedArray[bulk_id] = newCheckbox.checked;//
+                //console.log(checkedArray);
+                
+            });
+            newCheckbox.addEventListener('click', function() {
+                if(!newCheckbox.checked){
+
+                    selectAll.checked = false;
+                }
+                checkedArray[newCheckbox.value] = newCheckbox.checked;
+  
             });
 
             
@@ -326,6 +372,7 @@
             tdDate.textContent = dateArray[bulk_id];
             tdTime.textContent = timeArray[bulk_id];
             tdResult.textContent = bulkIdSums[bulk_id];
+            
 
             // Append td elements to the new row
             newRow.appendChild(tdRegion);
@@ -336,15 +383,50 @@
             newRow.appendChild(tdTime);
             newRow.appendChild(tdResult);
             newRow.appendChild(newButton);
+            //newRow.appendChild(space);
+            newRow.appendChild(checkboxcolumn);
 
             // Append the new row to the table body
             tableBody.appendChild(newRow);
+
+            
         });
     //////////////////////////////////
+    
     const newButton2 = document.getElementById('clearFilter');
     newButton2.addEventListener('click', function() {
                 //alert('Button clicked!'+ bulk_id);
+                
                 window.location.href = '/viewOder';
+    });
+
+    const newButton3 = document.getElementById('print_order');
+    newButton3.addEventListener('click', function() {
+                //alert('Button clicked!'+ bulk_id);
+                
+                //window.location.href = '/viewOder';
+                const checkedBulkIds = Object.keys(checkedArray).filter(bulk_id => checkedArray[bulk_id]);
+                console.log(checkedBulkIds);
+                if(checkedBulkIds.length == 0){
+                    
+                    const messageContainer = document.getElementById('message-container');
+                    
+                    
+                    const message  = 'Select at least one order to print';
+                   
+                    messageContainer.style.display = 'block';
+                    messageContainer.textContent = message;
+                    messageTimeout = setTimeout(() => { 
+                        messageContainer.style.display = 'none';
+                    }, 2000);
+                    
+                }
+                
+                else{
+                    window.location.href = '/download/orderDetails?checkedArray=' + checkedBulkIds;
+                }
+               
+                //
     });
 
     </script>
