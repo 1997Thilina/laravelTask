@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AddUserController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\CsvAddSkuController;
 use App\Http\Controllers\DefineFreeController;
 use App\Http\Controllers\DiscountDefineController;
 use App\Http\Controllers\PlaceFreeOrderController;
@@ -9,6 +10,7 @@ use App\Http\Controllers\POrderController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegionController;
 use App\Http\Controllers\SKUController;
+use App\Http\Controllers\StockController;
 use App\Http\Controllers\TerritoryController;
 use App\Http\Controllers\ZoneController;
 use App\Models\DiscountDefine;
@@ -68,6 +70,12 @@ Route::middleware(['auth','role:admin'])->group(function () {
 
     Route::get('/viewOder', [POrderController::class, 'viewOrder'])->name('order.view');
 
+    Route::get('/stockMaintaince', [StockController::class, 'viewStockMaintaince'])->name('view.viewStockMaintaince');
+    Route::post('/stockMaintaince/add', [StockController::class, 'addStockMaintaince'])->name('add.viewStockMaintaince');
+
+    Route::get('/exportSampleCsv', [CsvAddSkuController::class, 'exportSampleCsv'])->name('get.sampleCsv');
+    Route::post('/importSampleCsv', [CsvAddSkuController::class, 'import'])->name('csv.import');
+
 
 });
 
@@ -84,6 +92,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/viewFreeOder', [PlaceFreeOrderController::class, 'ViewcreateOrderFree'])->name('freeOrder.view');
 
     Route::get('/download/orderDetails', [POrderController::class, 'downloadOrderDetails'])->name('orderDetails.download');
+
+    Route::get('/order/invoice', [POrderController::class, 'generatePDF']);
+
+    
 
 
 

@@ -85,6 +85,25 @@
         <div class="form-group col-md-2">
             <button type="submit" class="btn btn-success" id='clearFilter'>Clear Filter</button>
         </div>
+        <div class="form-row">
+        <div class="form-group col-md-2">
+            <label for="print_order">Download Invoice:</label>
+        </div>
+        
+        
+
+        
+        <div class="form-group col-md-1">
+            <button type="submit" class="btn btn-success" id='print_order'>Excel</button>
+        </div>
+        {{-- <div class="form-group col-md-1">
+            <button type="submit" class="btn btn-success" id='print_pdf_order'>pdf</button>
+        </div> --}}
+        <div class="form-group col-md-1">
+            <button type="submit" class="btn btn-success" id='bulktestpdf'>pdf</button>
+        </div>
+        <div id="message-container"></div>
+    </div>
         
         <table class="table">
             <thead>
@@ -109,12 +128,10 @@
         {{-- <div class="col-md-2">
             <a href="{{ route('orderDetails.download') }}" class="btn btn-primary" style="color: white; width:100px ; height:40px; background-color: rgb(9, 156, 63);">download csv</a>
         </div> --}}
-        <div id="message-container"></div>
-        <div class="form-group col-md-2">
-            <button type="submit" class="btn btn-success" id='print_order'>Print</button>
-        </div>
+        
 
-    </div>
+     </div>
+     
     <script>
         
         const inputFields = document.querySelectorAll('#zone');
@@ -339,7 +356,7 @@
             // Add a click event listener to the button
             newButton.addEventListener('click', function() {
                 //alert('Button clicked!'+ bulk_id);
-                window.location.href = '/viewOderDetails?bulk_id=' + bulk_id;
+                window.location.href = '/viewOderDetails?bulk_id=' + bulk_id + '&c_Name=' + customerArray[bulk_id] +'&amount=' + bulkIdSums[bulk_id];
             });
 
             selectAll.addEventListener('click', function() {
@@ -400,13 +417,14 @@
                 window.location.href = '/viewOder';
     });
 
+    let checkedBulkIds;
     const newButton3 = document.getElementById('print_order');
     newButton3.addEventListener('click', function() {
                 //alert('Button clicked!'+ bulk_id);
                 
                 //window.location.href = '/viewOder';
-                const checkedBulkIds = Object.keys(checkedArray).filter(bulk_id => checkedArray[bulk_id]);
-                console.log(checkedBulkIds);
+                checkedBulkIds = Object.keys(checkedArray).filter(bulk_id => checkedArray[bulk_id]);
+                //console.log(checkedBulkIds);
                 if(checkedBulkIds.length == 0){
                     
                     const messageContainer = document.getElementById('message-container');
@@ -425,10 +443,105 @@
                 else{
                     window.location.href = '/download/orderDetails?checkedArray=' + checkedBulkIds;
                 }
-               
-                //
-    });
 
+    });
+    ////////////////////////////////////////////////////////////////////////
+     
+    
+    const newButton4 = document.getElementById('print_pdf_order');
+    newButton4.addEventListener('click', function() {
+                //alert('Button clicked!'+ bulk_id);
+                
+                //window.location.href = '/viewOder';
+                checkedBulkIds = Object.keys(checkedArray).filter(bulk_id => checkedArray[bulk_id]);
+                console.log(checkedBulkIds);
+                if(checkedBulkIds.length == 0){
+                    
+                    const messageContainer = document.getElementById('message-container');
+                    
+                    
+                    const message  = 'Select at least one order to print';
+                   
+                    messageContainer.style.display = 'block';
+                    messageContainer.textContent = message;
+                    messageTimeout = setTimeout(() => { 
+                        messageContainer.style.display = 'none';
+                    }, 2000);
+                    
+                
+                }
+                
+                else{
+
+                    //for (var j = 0; j < checkedBulkIds.length; j++) {
+                        var j=0;
+                        var userItem = checkedBulkIds[j];
+                        
+                        let down = true;
+                        window.location.href = '/viewOderDetails?bulk_id=' + userItem + '&c_Name=' + customerArray[userItem] +'&amount=' + bulkIdSums[userItem] +'&down='+down +'&downVal='+ j ;
+                    //window.location.href = '/download/orderDetails?checkedArray=' + checkedBulkIds;
+                    //}
+                    down = false;
+                    console.log('downbecomes  ' + down);
+                }
+
+    });
+    window.addEventListener('storage', function(event) {
+
+        checkedBulkIds = Object.keys(checkedArray).filter(bulk_id => checkedArray[bulk_id]);
+        console.log(checkedBulkIds);
+        
+        var myParameter1 = localStorage.getItem('myParameter');
+        var myTriggerEvent = localStorage.getItem('triggerEvent');
+        let myParameter = parseFloat(myParameter1);
+        myParameter++;
+        
+        myParameters = myParameter.toString();
+        if(myParameter<checkedBulkIds.length){
+            let down = true;
+            
+            window.location.href = '/viewOderDetails?bulk_id=' + checkedBulkIds[myParameter] + '&c_Name=' + customerArray[checkedBulkIds[myParameter]] +'&amount=' + bulkIdSums[checkedBulkIds[myParameter]] +'&down='+down +'&downVal='+ myParameters ;
+            
+        } else {
+            localStorage.removeItem('myParameter');
+            localStorage.removeItem('triggerEvent');
+            let down = false;
+        }
+            
+    });
+   
+
+    </script>
+    
+
+    <script>
+    const newButton5 = document.getElementById('bulktestpdf');
+    newButton5.addEventListener('click', function() {
+                //alert('Button clicked!');
+                
+                //window.location.href = '/viewOder';
+                checkedBulkIds = Object.keys(checkedArray).filter(bulk_id => checkedArray[bulk_id]);
+                //console.log(checkedBulkIds);
+                if(checkedBulkIds.length == 0){
+                    
+                    const messageContainer = document.getElementById('message-container');
+                    
+                    
+                    const message  = 'Select at least one order to print';
+                   
+                    messageContainer.style.display = 'block';
+                    messageContainer.textContent = message;
+                    messageTimeout = setTimeout(() => { 
+                        messageContainer.style.display = 'none';
+                    }, 2000);
+                    
+                }
+                
+                else{
+                    window.location.href = '/order/invoice?checkedArray=' + checkedBulkIds;
+                }
+
+    });
     </script>
 
     <!-- Add Bootstrap JavaScript and jQuery (if needed) -->

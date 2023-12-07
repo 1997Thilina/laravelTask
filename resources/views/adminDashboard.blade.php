@@ -50,6 +50,9 @@
                     <a href="{{ route('view.defineDiscount') }}" class="btn btn-danger btn-lg btn-block">DEFINE DISCOUNTS </a>
                 </div>
                 <div class="col-md-3 mb-3">
+                    <a href="{{ route('view.viewStockMaintaince') }}" class="btn btn-danger btn-lg btn-block">Stock Maintaince </a>
+                </div>
+                <div class="col-md-3 mb-3">
                     <a href="{{ route('order.view') }}" class="btn btn-danger btn-lg btn-block">VIEW ORDERS  </a>
                 </div>
             </div> 
