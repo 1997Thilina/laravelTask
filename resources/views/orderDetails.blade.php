@@ -8,6 +8,7 @@
 </head>
 <body>
     <button onclick="downloadPdf()">Download PDF</button>
+    
     <div id="pdfContent" class="container col-md-10">
         @php
             $bulkId = request('bulk_id');

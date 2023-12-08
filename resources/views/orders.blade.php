@@ -3,7 +3,13 @@
 <head>
     <title>View Purchase Orders</title>
     <!-- Add Bootstrap CSS (if not already included) -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    
 </head>
 <body>
     <div class="container col-md-10">
@@ -49,10 +55,13 @@
                         @endforeach
                         <!-- Add territory options dynamically -->
                     </select>
-                </div>
-                <div class="form-group col-md-2">
-                    <label for="distributor">Distributor</label>
-                    <select class="form-control" id="distributor" name="customer">
+                </div >
+
+                <div class="col-md-4">
+                    <label for="distributor" class="col-md-10">Distributor: </label>
+
+                    <select class="ch col-md-8" id="distributor" name="customer">>
+                        
                         <option value="" disabled selected>Select</option>
                         
                         @foreach ($user as $item)
@@ -63,6 +72,7 @@
                         <!-- Add distributor options dynamically -->
                     </select>
                 </div>
+                
             </div>
             <div class="form-row">
                 <div class="form-group col-md-3">
@@ -103,6 +113,19 @@
             <button type="submit" class="btn btn-success" id='bulktestpdf'>pdf</button>
         </div>
         <div id="message-container"></div>
+
+        {{-- <div class="select-box">
+            <div class=" select-option">
+                <input type="text" placeholder="select" id="soValue" readonly>
+
+            </div>
+            <div class="content">
+                <div class="search">
+                    <input type="text" id="optionSearch">
+            </div>
+
+        </div> --}}
+        
     </div>
         
         <table class="table">
@@ -131,7 +154,7 @@
         
 
      </div>
-     
+
     <script>
         
         const inputFields = document.querySelectorAll('#zone');
@@ -543,10 +566,18 @@
 
     });
     </script>
+    
 
     <!-- Add Bootstrap JavaScript and jQuery (if needed) -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    {{-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> --}}
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+       $(document).ready(function() {
+            $('.ch').select2({width: 'resolve'});
+        });
+    </script>
+
 </body>
 </html>

@@ -58,9 +58,9 @@
     
     <div id="pdfContent" class="container col-md-10">
         
-            {{-- <img src="https://www.ceylonlinux.com/wp-content/themes/CeylonLinux/assets/images/logo.png" alt=""> --}}
             
-        {{-- <img src="{{ asset('/images/logo.jpg') }}" alt="profile Pic" height="200" width="200"> --}}
+            {{-- <img src="/imgages/logo.jpg" alt="Logo"> --}}
+        
         
         <h2 class="mt-10">Order Invoice</h2>
        
