@@ -27,6 +27,7 @@ class PlaceFreeOrderController extends Controller
                 's_k_u_s.sku_name as sku_name',
                 's_k_u_s.id as id',
                 's_k_u_s.dPrice as dPrice',
+                's_k_u_s.quantity as skuQuantity',
                 
                 'define_frees.free_quantity as free_quantity',
                 'define_frees.type as type',
@@ -57,7 +58,9 @@ class PlaceFreeOrderController extends Controller
         $enQty = $data['en_qty'];
         $freeQty =$data['free_qty'];
         $discount =$data['discount_value'];
+        $remainingQuantity = $data['remainingQuantity'];
         $amounts = $data['amount'];
+        // $total_amounts = $data['amount'];
 
         foreach ($enQty as $key => $qty) {
             // Check if en_qty and amount are not null
@@ -87,6 +90,15 @@ class PlaceFreeOrderController extends Controller
                 $order_add->save();
             }
         }
+         foreach ($remainingQuantity as $key => $rmq) {
+             if ($rmq !== null) {
+                 //$qty_update = new SKU();
+                 SKU::where('id', $productCodes[$key])->update([
+                'quantity' => $rmq,
+              
+            ]);
+            }
+         }
         //return $order_add;
         return redirect()->route('freeOrder.view')->with('success', 'Order Successfully added.');
         

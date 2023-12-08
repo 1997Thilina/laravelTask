@@ -5,27 +5,81 @@
     <!-- Add Bootstrap CSS (if not already included) -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://rawgit.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js"></script>
+
+    <style>
+        body {
+            font-size: 14px;
+        }
+
+        .container {
+            width: 100%;
+            margin: 20px auto;
+        }
+
+        table {
+            width: 100%;
+            margin-bottom: 20px;
+            /* border-collapse: collapse; */
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            margin: 5px;
+        }
+
+        .total-amount {
+            margin-left: 85%;
+        }
+        .page-break {
+            page-break-after: always;
+        }
+       
+    </style>
 </head>
 <body>
-    <button onclick="downloadPdf()">Download PDF</button>
+
+    @php
+        //$array1 = array($checkedArray);
+        $array1 = explode(',', $checkedArray);
+        $arrayLength = count($array1);
+        $firstdata = $details;
+    @endphp
+    @for($i = 0; $i < $arrayLength; $i++) 
+    @php
+        
+        $sum = 0;
+    @endphp
+        
     
     <div id="pdfContent" class="container col-md-10">
-        @php
-            $bulkId = request('bulk_id');
-            $cName = request('c_Name');
-            $amount = request('amount');
-            // echo $cName;
-            // echo $amount;
-        @endphp
-        <h2 class="mt-10">Order Details</h2>
+        
+            
+            {{-- <img src="/imgages/logo.jpg" alt="Logo"> --}}
+        
+        
+        <h2 class="mt-10">Order Invoice</h2>
        
         <div> 
-            <label for="cName">Customer Name : </label> 
-            <label id="cName">{{$cName}}</label>
+            <label for="cName">Customer Name : </label>
+            @foreach ($details as $item3)
+            @if ($item3->bulk_id == $array1[$i] )
+                @php
+                    $c_name = $item3->customer_name;
+                @endphp
+            @endif    
+            @endforeach 
+            <label id="cName">{{$c_name}}</label>
+            {{-- <label id="setName"></label> --}}
+            
         </div>
         <div> 
             <label for="cName">PO Number : </label> 
-            <label id="cName">{{$bulkId}}</label>
+            <label id="cName">{{$array1[$i]}}</label>
         </div>
     
         
@@ -53,8 +107,8 @@
                 </tr>
             </thead>
             <tbody id="tableBody">
-                @foreach ($resultDetails as $item)
-                @if ($item->bulk_id == $bulkId )
+                @foreach ($details as $item)
+                @if ($item->bulk_id == $array1[$i] )
                 @php
                     // Convert the timestamp to a Carbon instance
                     $createdAt = \Carbon\Carbon::parse($item->date);
@@ -81,22 +135,31 @@
                     <td><label type="text" class="form-control" name="product_code[]">{{$time}}</td>
                     <td><label type="text" class="form-control" name="price[]" id='unit_price'>{{$item->amount}}</td>
                 </tr>
+                @php
+                    $sum  +=$item->amount;
+                    
+                @endphp
+                <label hidden="hidden" id="name_js" style="display: none;" >{{ $item->customer_name}}</label>
                 
                 @endif
                     
                 @endforeach
                 
             </tbody>
+            
         </table>
+        
         <div style="margin-left: 85%" > 
             {{-- <div class="form-row"> --}}
                 <label for="cName" class="ol-md-5 ">Total amount:  </label> 
                 <label class=" "></label>
-                <label id="cName" class="form-control col-md-5 ">{{$amount}}</label>
+                <label id="cName" class="form-control col-md-5 ">{{$sum}}</label>
             {{-- </div> --}}
         </div> 
     </div>
-    <script>
+    <div class="page-break"></div>
+    @endfor
+    {{-- <script>
         
         function downloadPdf() {
             var element = document.getElementById('pdfContent');
@@ -155,7 +218,7 @@
         return urlSearchParams.get(param);
         }
 
-    </script>
+    </script> --}}
     
 
     <!-- Add Bootstrap JavaScript and jQuery (if needed) -->
